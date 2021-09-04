@@ -1,10 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require('./config/config')
 
 const app = express()
 
 // ! Database connection
-const uri = "mongodb://shonjoy:rsshonjoy@mongo:27017/?authSource=admin"
+const uri = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
