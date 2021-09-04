@@ -10,12 +10,18 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }
-mongoose
-  .connect(uri, options)
-  .then(() => console.log('Successfully connected to DB'))
-  .catch((e) => {
-    console.log(e)
-  })
+
+const connectWithRetry = () => {
+  mongoose
+    .connect(uri, options)
+    .then(() => console.log('Successfully connected to DB'))
+    .catch((e) => {
+      console.log(e)
+      setTimeout(connectWithRetry, 5000);
+    })
+}
+
+connectWithRetry()
 
 app.use(express.json())
 
